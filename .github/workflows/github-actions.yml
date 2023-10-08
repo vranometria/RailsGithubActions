@@ -4,20 +4,18 @@ on:
   push:
     branches:
       - master
+      - github-actions
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     services:
-      # DBコンテナの生成
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: ga_test
-        ports:
-          - 3306/tcp
+      docker:
+        # GitHub ActionsでDockerを使用する際に、Dockerデーモンがホストとどのようにバインドされるかを指定する
+        # docker:bind はDockerコンテナ内からDockerデーモンにアクセスするための設定
+        # これにより、GitHub Actions内のDockerコンテナからDockerコマンドを実行できるようになりる
+        image: docker:dind
 
     steps:
 
