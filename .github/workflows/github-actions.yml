@@ -7,15 +7,8 @@ on:
       - github-actions
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-
-    services:
-      docker:
-        # GitHub ActionsでDockerを使用する際に、Dockerデーモンがホストとどのようにバインドされるかを指定する
-        # docker:bind はDockerコンテナ内からDockerデーモンにアクセスするための設定
-        # これにより、GitHub Actions内のDockerコンテナからDockerコマンドを実行できるようになりる
-        image: docker:dind
 
     steps:
 
@@ -23,24 +16,22 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # ruby, gemのインストール
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      # Docker Composeを利用するための公式のアクション
+      # Docker Composeファイルを読み込んで、定義されたサービス（コンテナ）を起動・管理するためのもの
+      - name: Set up Docker Compose
+        uses: docker/compose-action@v2
         with:
-          ruby-version: 3.2.2 # またはプロジェクトに適したバージョン
+          compose-file: docker-compose.yml
 
-      # bundle install
-      - name: Install Dependencies
-        run: |
-          gem install bundler
-          bundle install
+      # docker-compose.ymlの内容でコンテナ生成
+      - name: Build and Run Containers
+        run: docker-compose up -d
 
       # データベースとテーブルの作成
-      - name: Setup database
+      - name: Copy Code into Web Container
         run: |
-          bundle exec rails db:create RAILS_ENV=test
-          bundle exec rails db:migrate RAILS_ENV=test
+          docker cp . rails-web:/rails
 
       # RSPECの実行
       - name: Run RSpec
-        run: bundle exec rspec
+        run: docker exec rails-web bundle exec rspec
