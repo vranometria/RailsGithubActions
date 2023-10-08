@@ -1,0 +1,48 @@
+name: Run RSpec Tests
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # DBコンテナの生成
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: ga_test
+        ports:
+          - 3306/tcp
+
+    steps:
+
+      # コードを取り出す
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      # ruby, gemのインストール
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2 # またはプロジェクトに適したバージョン
+
+      # bundle install
+      - name: Install Dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      # データベースとテーブルの作成
+      - name: Setup database
+        run: |
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
+
+      # RSPECの実行
+      - name: Run RSpec
+        run: bundle exec rspec
