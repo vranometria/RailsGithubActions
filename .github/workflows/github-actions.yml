@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: ls
-        uses: ls
+        run: ls
 
       # docker-compose.ymlの内容でコンテナ生成
       - name: Build and Run Containers
