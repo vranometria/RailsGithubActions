@@ -44,4 +44,4 @@ COPY --from=build /rails /rails
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server", "--binding", "0.0.0.0"]
+CMD ["sudo", "./bin/rails", "server", "--binding", "0.0.0.0"]
