@@ -23,12 +23,6 @@ jobs:
       - name: Build and Run Containers
         run: sudo docker-compose up -d
 
-      - name: bundle
-        run: sudo docker-compose run bundle install
-
-      - name: test
-        run: sudo docker-compose run rails db:migrate
-
       # RSPECの実行
       - name: Run RSpec
         run: sudo docker exec rails-web bundle exec rspec
