@@ -36,12 +36,13 @@ FROM base
 # Install packages needed for deployment
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives && \
-    gem install rails
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 RUN echo here!
 RUN ls
 RUN pwd
+RUN ls bin
+RUN gem install rails
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
