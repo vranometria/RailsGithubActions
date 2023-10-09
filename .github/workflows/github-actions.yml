@@ -10,26 +10,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:latest
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: ga_test
-        ports:
-          - 3306:3306
-
     steps:
 
       # コードを取り出す
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # ruby環境の指定
       - name: Set up Ruby and Bundler
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.0
 
+      # dbコンテナの起動
+      - name: db-container
+        run: docker compose run db
+
+      # bundle install
       - name: bundlerとライブラリのインストール
         run: |
           gem install bundler
