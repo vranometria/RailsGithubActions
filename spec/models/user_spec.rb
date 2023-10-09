@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
 
   it 'test' do
     User.create( { name: 'test' })
-    expect(User.first.name).to eq 'test'  
+    expect(User.first.name).to eq 't'  
   end
 
 end
