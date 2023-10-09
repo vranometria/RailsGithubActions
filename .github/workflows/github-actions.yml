@@ -32,7 +32,7 @@ jobs:
 
       - name: bundlerとライブラリのインストール
         run: |
-          gem install bundleer
+          gem install bundler
           bundle install
 
       # RSPECの実行
