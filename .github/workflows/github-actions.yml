@@ -25,7 +25,7 @@ jobs:
 
       # RSPECの実行
       - name: Run RSpec
-        run: sudo docker exec -t rails-web bundle exec rspec -o rspec_result.txt
+        run: exec docker exec -t rails-web bundle exec rspec -o rspec_result.txt
 
       # 処理結果のアップロード
       - name: Upload Result
