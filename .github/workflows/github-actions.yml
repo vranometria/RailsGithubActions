@@ -25,4 +25,4 @@ jobs:
 
       # RSPECの実行
       - name: Run RSpec
-        run: sudo docker exec rails-web bundle exec rspec
+        run: sudo docker-compose run web bundle excec rspec
