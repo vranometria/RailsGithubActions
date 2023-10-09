@@ -16,16 +16,19 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: sudo
+        run: sudo chmod +x ./bin/rails
+
       # docker-compose.ymlの内容でコンテナ生成
       - name: Build and Run Containers
-        run: docker-compose up -d
+        run: sudo docker-compose up -d
 
       - name: bundle
-        run: docker-compose run bundle install
+        run: sudo docker-compose run bundle install
 
       - name: test
-        run: docker-compose run rails db:migrate
+        run: sudo docker-compose run rails db:migrate
 
       # RSPECの実行
       - name: Run RSpec
-        run: docker exec rails-web bundle exec rspec
+        run: sudo docker exec rails-web bundle exec rspec
