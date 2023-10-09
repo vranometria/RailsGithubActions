@@ -16,21 +16,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      # Docker Composeを利用するための公式のアクション
-      # Docker Composeファイルを読み込んで、定義されたサービス（コンテナ）を起動・管理するためのもの
-      - name: Set up Docker Compose
-        uses: docker/compose-action@v2
-        with:
-          compose-file: docker-compose.yml
-
       # docker-compose.ymlの内容でコンテナ生成
       - name: Build and Run Containers
         run: docker-compose up -d
 
-      # データベースとテーブルの作成
-      - name: Copy Code into Web Container
-        run: |
-          docker cp . rails-web:/rails
+      # webコンテナにgemを入れる
+      - name: bundle install
+        run: docker exec rails-web bundle install
+
+      # データベースの作成
+      - name: Create database
+        run: docker exec ./bin/rails db:create
+
+      # テーブルの作成
+      - name: Create Tables
+        run: docker exec ./bin/rails db:migrate
 
       # RSPECの実行
       - name: Run RSpec
