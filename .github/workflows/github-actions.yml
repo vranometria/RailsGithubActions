@@ -35,6 +35,11 @@ jobs:
           gem install bundler
           bundle install
 
+      - name: dbのセッティング
+        run: |
+          ./bin/rails db:create
+          ./bin/rails db:migrate
+
       # RSPECの実行
       - name: Run RSpec
         run: bundle exec rspec -o rspec_result.txt
