@@ -10,22 +10,27 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: ga_test
+        ports:
+          - 3306:3306
+
     steps:
 
       # コードを取り出す
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: railsのシェルに権限を付与する
-        run: sudo chmod +x ./bin/rails ./bin/docker-entrypoint
-
-      # docker-compose.ymlの内容でコンテナ生成
-      - name: Build and Run Containers
-        run: sudo docker-compose up -d
+      - name: gemのインストール
+        run: bundle install
 
       # RSPECの実行
       - name: Run RSpec
-        run: exec docker exec -t rails-web bundle exec rspec -o rspec_result.txt
+        run: bundle exec rspec -o rspec_result.txt
 
       # 処理結果のアップロード
       - name: Upload Result
