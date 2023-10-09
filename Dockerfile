@@ -41,7 +41,7 @@ RUN apt-get update -qq && \
 COPY . /rails/
 
 RUN chmod +x ./bin/rails
-RUN ./bin/rails db:migrate
+RUN ./bin/rails db:create
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
