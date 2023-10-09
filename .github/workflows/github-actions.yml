@@ -35,6 +35,9 @@ jobs:
           gem install bundler
           bundle install
 
+      - name: shellの権限付与
+        run: chmod +x ./bin/rails
+
       - name: dbのセッティング
         run: |
           ./bin/rails db:create
