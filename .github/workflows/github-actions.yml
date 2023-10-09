@@ -26,7 +26,7 @@ jobs:
       # webコンテナに入る
       - name: 入れる？
         run: |
-          docker exec -T rails-web bash
+          docker exec --tty rails-web bash
           bundle exec rspec
 
       # RSPECの実行
