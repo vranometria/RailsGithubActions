@@ -34,10 +34,10 @@ RUN bundle exec bootsnap precompile app/ lib/
 FROM base
 
 # Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives && \
-    chmod +x /rails/bin/rails
+RUN apt-get update -qq 
+RUN apt-get install --no-install-recommends -y curl default-mysql-client libvips
+RUN rm -rf /var/lib/apt/lists /var/cache/apt/archives
+RUN chmod +x /rails/bin/rails
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
