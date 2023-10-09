@@ -30,7 +30,7 @@ jobs:
         run: docker inspect rails-db
 
       - name: test
-        run: sudo docker-compose run web ping db
+        run: sudo docker-compose run web traceroute db
 
       # RSPECの実行
       - name: Run RSpec
