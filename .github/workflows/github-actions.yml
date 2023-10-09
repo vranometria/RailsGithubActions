@@ -29,6 +29,9 @@ jobs:
       - name: test
         run: docker inspect rails-db
 
+      - name: test
+        run: sudo docker-compose run web ping db
+
       # RSPECの実行
       - name: Run RSpec
         run: sudo docker-compose run web bundle exec rspec

@@ -4,7 +4,6 @@ services:
   db:
     image: mysql:8.1.0
     container_name: rails-db
-    hostname: rails-db
     environment:
       MYSQL_ROOT_PASSWORD: password
     ports:
