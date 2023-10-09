@@ -40,11 +40,6 @@ RUN apt-get update -qq && \
 
 COPY . /rails/
 
-RUN echo here!
-RUN ls
-RUN pwd
-
-
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
