@@ -40,11 +40,11 @@ RUN apt-get update -qq && \
 
 COPY . /rails/
 
-RUN chmod +x ./bin/rails
-
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
+
+ENTRYPOINT [ "./bin/docker-entrypoint" ]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
