@@ -23,15 +23,9 @@ jobs:
       - name: Build and Run Containers
         run: sudo docker-compose up -d
 
-      # webコンテナに入る
-      - name: 入れる？
-        run: |
-          docker exec --tty rails-web bash
-          bundle exec rspec
-
       # RSPECの実行
       - name: Run RSpec
-        run: sudo docker-compose run web bundle exec rspec -o rspec_result.txt
+        run: sudo docker exec -t rails-web bundle rspec -o rspec_result.txt
 
       # 処理結果のアップロード
       - name: Upload Result
