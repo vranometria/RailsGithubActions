@@ -36,7 +36,8 @@ FROM base
 # Install packages needed for deployment
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives && \
+    gem install rails
 
 RUN echo here!
 RUN ls
@@ -48,4 +49,4 @@ COPY --from=build /rails /rails
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["/rails/bin/rails", "server", "--binding", "0.0.0.0"]
+CMD ["rails", "server", "--binding", "0.0.0.0"]
