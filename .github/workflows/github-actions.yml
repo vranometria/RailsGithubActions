@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: sudo
+      - name: railsのシェルに権限を付与する
         run: sudo chmod +x ./bin/rails ./bin/docker-entrypoint
 
       # docker-compose.ymlの内容でコンテナ生成
@@ -25,4 +25,4 @@ jobs:
 
       # RSPECの実行
       - name: Run RSpec
-        run: sudo docker-compose run web bundle excec rspec
+        run: sudo docker-compose run web bundle exec rspec
