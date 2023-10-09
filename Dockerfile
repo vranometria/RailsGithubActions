@@ -37,7 +37,7 @@ FROM base
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives && \
-    chmod +x ./bin/rails
+    chmod +x /rails/bin/rails
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
@@ -45,4 +45,4 @@ COPY --from=build /rails /rails
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["./bin/rails", "server", "--binding", "0.0.0.0"]
+CMD ["/rails/bin/rails", "server", "--binding", "0.0.0.0"]
