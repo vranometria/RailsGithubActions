@@ -25,4 +25,11 @@ jobs:
 
       # RSPECの実行
       - name: Run RSpec
-        run: sudo docker-compose run web bundle exec rspec
+        run: sudo docker-compose run web bundle exec rspec > rspec_result.txt
+
+      # 処理結果のアップロード
+      - name: Upload Result
+        uses: actions/upload-artifact@v3
+        with:
+          name: rspec-log 
+          path: rspec_result.txt
