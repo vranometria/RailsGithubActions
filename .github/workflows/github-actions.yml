@@ -24,14 +24,6 @@ jobs:
       - name: bundle install
         run: docker exec rails-web bundle install
 
-      # データベースの作成
-      - name: Create database
-        run: docker exec ./bin/rails db:create
-
-      # テーブルの作成
-      - name: Create Tables
-        run: docker exec ./bin/rails db:migrate
-
       # RSPECの実行
       - name: Run RSpec
         run: docker exec rails-web bundle exec rspec
