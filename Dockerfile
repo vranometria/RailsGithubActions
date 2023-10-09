@@ -38,6 +38,8 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl default-mysql-client libvips && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+RUN echo here!
+RUN ls
 RUN pwd
 
 # Copy built artifacts: gems, application
