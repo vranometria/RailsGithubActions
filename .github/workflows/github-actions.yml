@@ -24,7 +24,7 @@ jobs:
         run: sudo docker-compose up -d
 
       - name: test
-        run: docker network list
+        run: docker network inspect railsgithubactions_default
 
       # RSPECの実行
       - name: Run RSpec
