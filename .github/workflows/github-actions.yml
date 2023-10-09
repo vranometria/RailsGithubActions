@@ -20,9 +20,8 @@ jobs:
       - name: Build and Run Containers
         run: docker-compose up -d
 
-      # webコンテナにgemを入れる
-      - name: bundle install
-        run: docker exec rails-web bundle install
+      - name: test
+        run: docker-compose run rails db:migrate
 
       # RSPECの実行
       - name: Run RSpec
