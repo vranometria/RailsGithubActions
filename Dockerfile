@@ -41,7 +41,6 @@ RUN apt-get update -qq && \
 COPY . /rails/
 
 RUN chmod +x ./bin/rails
-RUN bundle install
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle

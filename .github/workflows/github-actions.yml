@@ -20,6 +20,9 @@ jobs:
       - name: Build and Run Containers
         run: docker-compose up -d
 
+      - name: bundle
+        run: docker-compose run bundle install
+
       - name: test
         run: docker-compose run rails db:migrate
 
