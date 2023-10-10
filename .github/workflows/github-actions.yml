@@ -10,6 +10,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: ga_test
+        ports:
+          - 3306:3306
+
     steps:
 
       # コードを取り出す
@@ -22,9 +31,8 @@ jobs:
         with:
           ruby-version: 3.0
 
-      # dbコンテナの起動
-      - name: db-container
-        run: docker compose run db
+      - name: replace config.yml
+        run: copy ./.github/workflows/database.yml ./config/database.yml
 
       # bundle install
       - name: bundlerとライブラリのインストール
