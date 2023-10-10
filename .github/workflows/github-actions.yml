@@ -46,7 +46,7 @@ jobs:
 
       # RSPECの実行
       - name: Run RSpec
-        run: bundle exec rspec -o rspec_result.txt
+        run: bundle exec rspec 
 
       # 処理結果のアップロード
       - name: Upload Result
