@@ -32,7 +32,7 @@ jobs:
           ruby-version: 3.0
 
       - name: replace config.yml
-        run: copy ./.github/workflows/database.yml ./config/database.yml
+        run: cp ./.github/workflows/database.yml ./config/database.yml
 
       # bundle install
       - name: bundlerとライブラリのインストール
