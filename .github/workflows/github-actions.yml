@@ -45,8 +45,8 @@ jobs:
 
       - name: dbのセッティング
         run: |
-          ./bin/rails db:create
-          ./bin/rails db:migrate
+          ./bin/rails db:create RAILS_ENV=test
+          ./bin/rails db:migrate RAILS_ENV=test
 
       # RSPECの実行
       - name: Run RSpec
